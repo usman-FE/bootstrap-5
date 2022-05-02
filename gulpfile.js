@@ -61,7 +61,7 @@ function imageOptimize() {
 
 // Images conversion
 function webpImage() {
-  return src("dist/images/*.{jpg,png}")
+  return src("dist/images/**/*.{jpg,png}")
     .pipe(imagewebp())
     .pipe(dest("dist/images"));
 }
@@ -100,9 +100,9 @@ function browserSyncReload(cb) {
 // If any change, run scss and js tasks simultaneously
 function watchTask() {
   watch(
-    [files.scssPath, files.jsPath, files.imgPath],
+    [files.scssPath, files.jsPath],
     { interval: 1000, usePolling: true }, //Makes docker work
-    series(parallel(scssTask, jsTask, imageOptimize), webpImage, cacheBustTask)
+    series(parallel(scssTask, jsTask,), cacheBustTask)
   );
 }
 
@@ -112,23 +112,20 @@ function watchTask() {
 function bsWatchTask() {
   watch("index.html", browserSyncReload);
   watch(
-    [files.scssPath, files.jsPath, files.imgPath],
+    [files.scssPath, files.jsPath],
     { interval: 1000, usePolling: true }, //Makes docker work
     series(
-      parallel(scssTask, jsTask, imageOptimize),
-      webpImage,
+      parallel(scssTask, jsTask),
       cacheBustTask,
       browserSyncReload
     )
   );
 }
-
 // Export the default Gulp task so it can be run
 // Runs the scss and js tasks simultaneously
 // then runs cacheBust, then watch task
 exports.default = series(
-  parallel(scssTask, jsTask, imageOptimize),
-  webpImage,
+  parallel(scssTask, jsTask),
   cacheBustTask,
   watchTask
 );
@@ -136,9 +133,13 @@ exports.default = series(
 // Runs all of the above but also spins up a local Browsersync server
 // Run by typing in "gulp bs" on the command line
 exports.bs = series(
-  parallel(scssTask, jsTask, imageOptimize),
-  webpImage,
+  parallel(scssTask, jsTask),
   cacheBustTask,
   browserSyncServe,
   bsWatchTask
 );
+
+exports.img = series(
+  imageOptimize,
+  webpImage
+)
