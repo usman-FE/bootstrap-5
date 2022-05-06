@@ -1,1 +1,1 @@
-{"version":3,"sources":["app.js"],"names":["console","log"],"mappings":"AAAAA,QAAAC,IAAA","file":"app.js","sourcesContent":["console.log(\"hello gulp\");\r\n"]}
+{"version":3,"sources":["app.js"],"names":["lightbox","GLightbox","href","type","source","width"],"mappings":"AAAA,MAAAA,SAAAC,UAAA,CACAC,KAAA,8CACAC,KAAA,QACAC,OAAA,UACAC,MAAA","file":"app.js","sourcesContent":["const lightbox = GLightbox({\r\n  href: \"https://www.youtube.com/watch?v=Ga6RYejo6Hk\",\r\n  type: \"video\",\r\n  source: \"youtube\", //vimeo, youtube or local\r\n  width: 900,\r\n});\r\n"]}
