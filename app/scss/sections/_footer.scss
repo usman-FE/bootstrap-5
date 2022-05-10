@@ -1,5 +1,5 @@
-@use '../custom' as *;
-@use '../components/mixins' as *;
+@use "../custom" as *;
+@use "../components/mixins" as *;
 
 .footer {
   padding-top: 1rem;
@@ -10,8 +10,13 @@
   position: relative;
 
   &__icon {
-    width: 4rem;
+    width: 2rem;
     stroke: $primary;
+    padding-top: 0.5rem;
+
+    @include media-breakpoint-up(sm) {
+      width: 4rem;
+    }
   }
 
   &__info {
@@ -19,15 +24,59 @@
     font-weight: 600;
 
     &--title {
-      font-size: 1.4rem;
+      font-size: 1rem;
       color: $white;
       text-decoration: none;
+
+      @include media-breakpoint-up(sm) {
+        font-size: 1.4rem;
+      }
     }
 
     &--subtitle {
-      font-size: 1rem;
+      font-size: 0.8rem;
       color: $gray-600;
       text-decoration: none;
+
+      @include media-breakpoint-up(sm) {
+        font-size: 1rem;
+      }
+    }
+  }
+}
+
+// SOCIAL MEDIA CONTENT
+.footer-sm {
+  a {
+    color: $white;
+
+    i {
+      font-size: 1rem;
+      margin-left: 1rem;
+
+      @include media-breakpoint-up(sm) {
+        font-size: 1.6rem;
+      }
+    }
+  }
+}
+
+// COMPANY INFO CONTENT
+.company-list {
+  display: block;
+  list-style-type: none;
+  position: relative;
+
+  li {
+    margin-bottom: 0.5rem;
+
+    a {
+      text-decoration: none;
+      color: $white;
+
+      &:hover {
+        color: $primary;
+      }
     }
   }
 }
